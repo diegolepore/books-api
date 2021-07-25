@@ -24,8 +24,8 @@ books.post('/', async (req, res) => {
       type: req.body.type,
       summary: req.body.summary
     }
-    const books = await store.create(book)
-    res.json(books)  
+    const b = await store.create(book)
+    res.json(b)  
   } catch (error) {
     res.status(400)
     res.json(error)

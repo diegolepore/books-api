@@ -2,6 +2,7 @@ import express from 'express'
 
 // import routes here
 import books from './api/books'
+import users from './api/users'
 
 const routes = express.Router()
 
@@ -10,6 +11,7 @@ routes.get('/', (req, res) => {
 })
 
 routes.use('/books', books)
+routes.use('/users', users)
 
 
 
