@@ -1,5 +1,6 @@
 import express from 'express'
 import { User, UserStore } from '../../models/user'
+import jwt from 'jsonwebtoken'
 
 const store = new UserStore()
 
@@ -39,7 +40,9 @@ users.post('/auth', async (req, res) => {
       password_digest: req.body.password_digest
     }
     const u = await store.authenticate(user.email, user.password_digest)
-    res.json(u)  
+    // @ts-ignore
+    const token = jwt.sign({user: u}, process.env.TOKEN_SECRET)
+    res.json(token)  
   } catch (error) {
     res.status(400)
     console.log(error)

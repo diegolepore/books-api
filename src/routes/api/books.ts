@@ -1,11 +1,12 @@
 import express from 'express'
 import { Book, BookStore } from '../../models/book'
+import { verifyJWT } from '../../middleware/auth.middleware'
 
 const store = new BookStore()
 
 const books = express.Router()
 
-books.get('/', async (_req, res) => {
+books.get('/', verifyJWT, async (_req, res) => {
   try {    
     const books = await store.index()
     res.json(books)
@@ -15,7 +16,7 @@ books.get('/', async (_req, res) => {
   }
 })
 
-books.post('/', async (req, res) => {
+books.post('/', verifyJWT, async (req, res) => {
   try {
     const book: Book = {
       title: req.body.title,
